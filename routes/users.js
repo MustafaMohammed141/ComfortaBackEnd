@@ -7,9 +7,10 @@ const {
   putUsers,
   getSingleUsers,
 } = require("../controllers/users");
+const { signup } = require("../controllers/auth");
 
 user_routes.route("/").get(getUsers);
-
+user_routes.route("/Signup").post(signup);
 user_routes
   .route("/:userId")
   .get(getSingleUsers)
