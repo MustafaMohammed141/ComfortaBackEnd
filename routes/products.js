@@ -8,12 +8,11 @@ const {
   getSingleProducts,
 } = require("../controllers/products");
 
-product_routes.route("/").get(getProducts);
+product_routes.route("/").get(getProducts).post(postProducts);
 
 product_routes
   .route("/:productId")
   .get(getSingleProducts)
-  .post(postProducts)
   .put(putProducts)
   .delete(deleteProducts);
 
