@@ -6,9 +6,15 @@ const  userschema=require("../models/userschema");
       status: 200,
       data: { data: users, message: "Users fetched successfully" },
     });*/
-   const users=await userschema.find({});
-   console.log(users);
-   
+    try {
+      const users = await userschema.find({});
+      res.status(200).json({
+        status: 200,
+        data: { data: users, message: "Users fetched successfully" },
+      });
+    } catch (err) {
+      res.status(500).json({ status: 500, message: "Server error" });
+    }
   };
   
   const addUsers = async (req, res) => {
