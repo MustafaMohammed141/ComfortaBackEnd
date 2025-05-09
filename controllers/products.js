@@ -12,9 +12,18 @@ const getSingleProducts = async (req, res) => {
   res.status(200).json(Product);
 };
 
+
+
+const getSingleProducts = async (req, res) => {
+  const Product = await product.findById(req.params.id);
+  if (!Product) return res.status(404).json({ message: 'Product not found' });
+  res.json(Product);
+};
+
 const postProducts = async (newProduct) => {
+
   const product = {
-    id: Date.now().toString(),
+    id: Date.now().toString(), 
     ...newProduct,
   };
   products.push(product);
@@ -38,6 +47,7 @@ const putProducts = async (req, res) => {
   });
   if (!updated) return res.status(404).json({ message: "Product not found" });
   return updated;
+
 };
 
 module.exports = {

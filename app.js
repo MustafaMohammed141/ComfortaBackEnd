@@ -1,12 +1,16 @@
 const express = require("express");
 const cors = require("cors");
+const mongoose = require('mongoose');
 const { admin_routes } = require("./routes/admins");
 const { product_routes } = require("./routes/products");
 const { user_routes } = require("./routes/users");
-const app = express();
+
+
 // =========
-require("dotenv").config();
-const mongoose = require("mongoose");
+require('dotenv').config();
+const app = express();
+
+// =========
 
 const DB = process.env.MONGO_URI;
 mongoose
