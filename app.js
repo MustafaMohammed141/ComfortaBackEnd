@@ -18,12 +18,13 @@ mongoose.connect(process.env.MONGO_URI).then(() => console.log("MongoDB connecte
 
 const app = express();
 app.use(cors());
+app.use(express.json());
+
 
 app.use("/users", user_routes);
 app.use("/products", product_routes);
 app.use("/admins", admin_routes);
 
-app.use(express.json()); // for parsing application/json
 
 app.use((req, res) => {
   return res.status(400).json({
@@ -37,4 +38,5 @@ app.listen(3000, () => {
   console.log(`online`);
 });
 
-// modules.exports = app;
+
+modules.exports = app;
