@@ -1,13 +1,31 @@
 const express = require("express");
+const cors = require("cors");
 const { admin_routes } = require("./routes/admins");
 const { product_routes } = require("./routes/products");
 const { user_routes } = require("./routes/users");
+
+
+// =========
+require('dotenv').config();
+const mongoose = require('mongoose');
+
+
+mongoose.connect(process.env.MONGO_URI).then(() => console.log("MongoDB connected"))
+.catch(err => console.error(err));
+// =========
+
+
+
 const app = express();
+app.use(cors());
 app.use(express.json());
+
 
 app.use("/users", user_routes);
 app.use("/products", product_routes);
 app.use("/admins", admin_routes);
+
+
 app.use((req, res) => {
   return res.status(400).json({
     status: 400,
@@ -15,7 +33,10 @@ app.use((req, res) => {
   });
 });
 
+// when using the listen method, comment out the export statement
 app.listen(3000, () => {
   console.log(`online`);
 });
-// modules.exports = app;
+
+
+modules.exports = app;

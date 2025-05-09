@@ -1,17 +1,22 @@
-let products = []; 
+const product = require("../models/product");
 
-const getProducts = async () => {
-  console.log(`getProducts`);
-  return products;
+const getProducts = async (req, res) => {
+  const products = await product.find();
+    res.json(products)
 };
 
-const getSingleProducts = async (id) => {
-  console.log(`getProducts`);
-  return products.find((product) => product.id === id);
+
+const getSingleProducts = async (req, res) => {
+  const Product = await product.findById(req.params.id);
+  if (!Product) return res.status(404).json({ message: 'Product not found' });
+  res.json(Product);
 };
+
+
+
 
 const postProducts = async (newProduct) => {
-  console.log(`postProducts`);
+
  
   const product = {
     id: Date.now().toString(), 
@@ -21,10 +26,12 @@ const postProducts = async (newProduct) => {
   return product;
 };
 
+
+
+
+
+
 const deleteProducts = async (id) => {
-  console.log(`deleteProducts`);
-  console.log(`id`, id);
-  console.log(`products`, products);
   const index = products.findIndex((product) => product.id === id);
   if (index !== -1) {
     const deletedProduct = products[index];
@@ -34,8 +41,11 @@ const deleteProducts = async (id) => {
   return null;
 };
 
-const putProducts = async () => {
-  console.log(`putProducts`);
+// update a product
+const putProducts = async (req, res) => {
+  const updated = await product.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  if (!updated) return res.status(404).json({ message: 'Product not found' });
+  res.json(updated);
 };
 
 module.exports = {
