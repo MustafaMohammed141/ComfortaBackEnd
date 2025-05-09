@@ -3,15 +3,14 @@ const cors = require("cors");
 const { admin_routes } = require("./routes/admins");
 const { product_routes } = require("./routes/products");
 const { user_routes } = require("./routes/users");
+
+
 // =========
 require('dotenv').config();
 const mongoose = require('mongoose');
 
 
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).then(() => console.log("MongoDB connected"))
+mongoose.connect(process.env.MONGO_URI).then(() => console.log("MongoDB connected"))
 .catch(err => console.error(err));
 // =========
 
