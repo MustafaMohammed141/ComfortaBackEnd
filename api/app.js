@@ -1,13 +1,11 @@
 const express = require("express");
 const cors = require("cors");
-const mongoose = require('mongoose');
-const { admin_routes } = require("./routes/admins");
-const { product_routes } = require("./routes/products");
-const { user_routes } = require("./routes/users");
-
-
-// =========
-require('dotenv').config();
+const mongoose = require("mongoose");
+require("dotenv").config();
+const { admin_routes } = require("../routes/admins");
+const { product_routes } = require("../routes/products");
+const { user_routes } = require("../routes/users");
+const serverless = require("serverless-http");
 const app = express();
 
 // =========
@@ -34,8 +32,9 @@ app.use((req, res) => {
 });
 
 // when using the listen method, comment out the export statement
-app.listen(3000, () => {
-  console.log(`online`);
-});
+// app.listen(3000, () => {
+//   console.log(`online`);
+// });
 
 module.exports = app;
+module.exports.handler = serverless(app);
